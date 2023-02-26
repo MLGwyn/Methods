@@ -1,7 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Methods
 {
+    class Employee
+    {
+        public string Name;
+        public int Department;
+        public int Salary;
+        public int MonthlySalary;
+
+        public Employee(string newName, int newDepartment, int newSalary, int newMonthlySalary)
+        {
+            Name = newName;
+            Department = newDepartment;
+            Salary = newSalary;
+            MonthlySalary = newMonthlySalary;
+        }
+    }
+
     class Program
     {
         static void DisplayGreeting()
@@ -35,12 +52,26 @@ namespace Methods
                 Console.WriteLine("That isn't an integer. You get a 0");
                 return 0;
             }
-
         }
 
+        static int ComputeMonthlySalaryFromYearly(int yearlySalary)
+        {
+            return yearlySalary / 12;
+        }
 
         static void Main(string[] args)
         {
+            var graceHopper = new Employee("Grace Hopper", 100, 240_000, 24_000);
+            Console.WriteLine(graceHopper.Department);
+
+            var elliotPage = new Employee("Elliot Page", 42, 120_000, 12_000);
+            Console.WriteLine(elliotPage.Department);
+
+            var employees = new List<Employee>();
+            employees.Add(graceHopper);
+            employees.Add(elliotPage);
+
+
             DisplayGreeting();
 
             var name = PromptForString("What is your name? ");
@@ -49,7 +80,8 @@ namespace Methods
 
             var salary = PromptForInteger("What is your yearly salary (in dollars)?");
 
-            var salaryPerMonth = salary / 12;
+            var salaryPerMonth = ComputeMonthlySalaryFromYearly(salary);
+
             Console.WriteLine($"Hello, {name} you make {salaryPerMonth} dollars per month.");
         }
     }
