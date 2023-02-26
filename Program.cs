@@ -3,26 +3,44 @@ using System.Collections.Generic;
 
 namespace Methods
 {
+    class RetiredEmployee : Employee
+    {
+        public int MonthlySalary()
+        {
+            return 0;
+        }
+    }
+
     class Employee
     {
-        public string Name;
-        public int Department;
-        public int Salary;
-        public int MonthlySalary;
-
-        public Employee(string newName, int newDepartment, int newSalary, int newMonthlySalary)
+        public Employee()
         {
-            Name = newName;
-            Department = newDepartment;
-            Salary = newSalary;
-            MonthlySalary = newMonthlySalary;
+            this.CreatedAt = DateTime.Now;
         }
+        public string Name { get; set; }
+        public int Department { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int Salary { get; set; }
+        public int MonthlySalary()
+        {
+            return Salary / 12;
+        }
+
+        // public Employee(string newName, int newDepartment, int newSalary, int newMonthlySalary)
+        // {
+        //     Name = newName;
+        //     Department = newDepartment;
+        //     Salary = newSalary;
+        //     MonthlySalary = newMonthlySalary;
+        // }
     }
 
     class Program
     {
         static void DisplayGreeting()
         {
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("----------------------------------------");
             Console.WriteLine("    Welcome to Our Employee Database    ");
             Console.WriteLine("----------------------------------------");
@@ -61,28 +79,51 @@ namespace Methods
 
         static void Main(string[] args)
         {
-            var graceHopper = new Employee("Grace Hopper", 100, 240_000, 24_000);
-            Console.WriteLine(graceHopper.Department);
+            // var graceHopper = new Employee("Grace Hopper", 100, 240_000, 24_000);
+            // Console.WriteLine(graceHopper.Department);
 
-            var elliotPage = new Employee("Elliot Page", 42, 120_000, 12_000);
-            Console.WriteLine(elliotPage.Department);
+            // var elliotPage = new Employee("Elliot Page", 42, 120_000, 12_000);
+            // Console.WriteLine(elliotPage.Department);
 
-            var employees = new List<Employee>();
-            employees.Add(graceHopper);
-            employees.Add(elliotPage);
+            // var employees = new List<Employee>();
+            // employees.Add(graceHopper);
+            // employees.Add(elliotPage);
 
+            // var firstEmployee = new Employee();
+            // var secondEmployee = new Employee();
+
+            // firstEmployee.Name = "Elliot Page";
+            // firstEmployee.Department = 42;
+            // firstEmployee.Salary = 120000;
+            // firstEmployee.MonthlySalary = 10000;
+
+            // secondEmployee.Name = "Grace Hopper";
+            // secondEmployee.Department = 100;
+            // secondEmployee.Salary = 240000;
+            // secondEmployee.MonthlySalary = 20000;
+
+
+
+
+            var employee = new Employee();
+
+            var thirdEmployee = new RetiredEmployee
+            {
+                Name = "Bill Gates",
+                Department = 101,
+                Salary = 120,
+            };
+
+            Console.WriteLine(thirdEmployee.MonthlySalary());
 
             DisplayGreeting();
 
-            var name = PromptForString("What is your name? ");
+            employee.Name = PromptForString("What is your name? ");
+            employee.Department = PromptForInteger("What is your department number?");
+            employee.Salary = PromptForInteger("What is your yearly salary (in dollars)?");
+            // employee.MonthlySalary();
 
-            var department = PromptForInteger("What is your department number?");
-
-            var salary = PromptForInteger("What is your yearly salary (in dollars)?");
-
-            var salaryPerMonth = ComputeMonthlySalaryFromYearly(salary);
-
-            Console.WriteLine($"Hello, {name} you make {salaryPerMonth} dollars per month.");
+            Console.WriteLine($"Hello, {employee.Name} you make {employee.MonthlySalary()} dollars per month.");
         }
     }
 }
