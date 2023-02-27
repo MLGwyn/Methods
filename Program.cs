@@ -3,27 +3,15 @@ using System.Collections.Generic;
 
 namespace Methods
 {
-    class RetiredEmployee : Employee
-    {
-        public int MonthlySalary()
-        {
-            return 0;
-        }
-    }
-
     class Employee
     {
-        public Employee()
-        {
-            this.CreatedAt = DateTime.Now;
-        }
         public string Name { get; set; }
         public int Department { get; set; }
-        public DateTime CreatedAt { get; set; }
         public int Salary { get; set; }
         public int MonthlySalary()
         {
-            return Salary / 12;
+            int ComputedMonthlySalary = Salary / 12;
+            return MonthlySalary();
         }
 
         // public Employee(string newName, int newDepartment, int newSalary, int newMonthlySalary)
@@ -72,10 +60,10 @@ namespace Methods
             }
         }
 
-        static int ComputeMonthlySalaryFromYearly(int yearlySalary)
-        {
-            return yearlySalary / 12;
-        }
+        // static int ComputedMonthlySalary(int yearlySalary)
+        // {
+        //     return yearlySalary / 12;
+        // }
 
         static void Main(string[] args)
         {
@@ -89,41 +77,86 @@ namespace Methods
             // employees.Add(graceHopper);
             // employees.Add(elliotPage);
 
-            // var firstEmployee = new Employee();
-            // var secondEmployee = new Employee();
 
-            // firstEmployee.Name = "Elliot Page";
-            // firstEmployee.Department = 42;
-            // firstEmployee.Salary = 120000;
-            // firstEmployee.MonthlySalary = 10000;
-
-            // secondEmployee.Name = "Grace Hopper";
-            // secondEmployee.Department = 100;
-            // secondEmployee.Salary = 240000;
-            // secondEmployee.MonthlySalary = 20000;
-
-
-
-
-            var employee = new Employee();
-
-            var thirdEmployee = new RetiredEmployee
+            var elliotPage = new Employee()
             {
-                Name = "Bill Gates",
-                Department = 101,
-                Salary = 120,
+                Name = "Elliot Page",
+                Department = 42,
+                Salary = 120000,
+                // MonthlySalary = 10000
             };
 
-            Console.WriteLine(thirdEmployee.MonthlySalary());
+            var graceHopper = new Employee();
+            graceHopper.Name = "Grace Hopper";
+            graceHopper.Department = 100;
+            graceHopper.Salary = 240000;
+            // graceHopper.MonthlySalary = 20000;
+
+            var employees = new List<Employee>()
+            {
+                new Employee()
+                {
+                    Name = "Melissa Gwyn",
+                },
+
+                new Employee()
+                {
+                    Name = "Ducky Orlando"
+                }
+            };
+
+            employees[0].Department = 500;
+
+
+            employees.Add(graceHopper);
+            employees.Add(elliotPage);
+
+            employees[1].Department = 6969;
+
+            Console.WriteLine($"You have {employees.Count} employees. ");
+            Console.WriteLine($"Ducky is in department {employees[1].Department}");
+
+
+
+
 
             DisplayGreeting();
 
-            employee.Name = PromptForString("What is your name? ");
-            employee.Department = PromptForInteger("What is your department number?");
-            employee.Salary = PromptForInteger("What is your yearly salary (in dollars)?");
-            // employee.MonthlySalary();
+            var employeeList = new List<Employee>();
 
-            Console.WriteLine($"Hello, {employee.Name} you make {employee.MonthlySalary()} dollars per month.");
+            bool keepGoing = true;
+
+            while (keepGoing)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"----- You have {employeeList.Count} employees ----- ");
+                Console.WriteLine();
+
+                var name = PromptForString("What is your name? ");
+                var department = PromptForInteger("What is your department number?");
+                var salary = PromptForInteger("What is your yearly salary (in dollars)?");
+                // var monthlySalary = ComputedMonthlySalary(salary);
+
+                // Console.WriteLine($"Hello, {name} you make {monthlySalary} dollars per month.");
+
+                var newEmployee = new Employee();
+                newEmployee.Name = name;
+                newEmployee.Department = department;
+                newEmployee.Salary = salary;
+                // newEmployee.MonthlySalary = monthlySalary;
+
+                Console.WriteLine($"By the way their monthly salary is {newEmployee.MonthlySalary()}");
+                employeeList.Add(newEmployee);
+
+                var answer = PromptForString("Keep going? ");
+                if (answer.ToLower() == "no")
+                {
+                    keepGoing = false;
+                }
+
+
+                // Console.WriteLine($"Your employees are {}. ");
+            }
         }
     }
 }
